@@ -122,8 +122,8 @@ class P1:
         validation = self.validation
         
         
-        epochs = 10000
-        learning_rate = 0.01
+        epochs = 1000
+        learning_rate = 0.1
         hidden_nodes = 30
         output_nodes = 1
         
