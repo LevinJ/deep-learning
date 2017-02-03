@@ -47,8 +47,7 @@ class NeuralNetwork:
         hidden_grad = hidden_outputs * (1.0 - hidden_outputs)
         
         # Update the weights
-        self.weights_hidden_to_output += self.lr * np.dot(output_errors, 
-                                                          hidden_outputs.T)
+        self.weights_hidden_to_output += self.lr * np.dot(output_errors, hidden_outputs.T)
         self.weights_input_to_hidden += self.lr * np.dot(hidden_errors * hidden_grad, inputs.T)
         
     def run(self, inputs_list):
