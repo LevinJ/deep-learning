@@ -9,6 +9,7 @@ Nice work in setting up your first neural network and applying it to real world 
 
 All the best for your next submission!
 
+Your project passed review. I also left some comments/suggestions for your reference. Happy learning!
 
 # activations
 
@@ -42,7 +43,9 @@ Hidden layer gradient(hidden_grad)  is actually the gradient for sigmoid functio
 
 
 The output error should be propagated back to the hidden layer with the hidden-to-output weights in order to generate hidden_errors. In another words, hidden_errors should be derived from self.weight_hidden_to_output and output_errors
- "Suggestion: For this particular network (being a single sample) your solution of elementwise updating on the weights works. However, this would not always be the case, so it is better practice to solve this by doing matrix multiply:
+ "Suggestion: For this particular network (being a single sample) your solution of elementwise updating on the weights works. However, this would not always be the case, so it is better practice to solve this by doing matrix multiply as below:
+self.weights_hidden_to_output += self.lr * np.dot(output_errors, hidden_outputs.T)
+self.weights_input_to_hidden += self.lr * np.dot(hidden_errors * hidden_grad, inputs.T)
 
 
 
@@ -57,7 +60,15 @@ Well done. looking at your plot of training and testing loss, I can see that you
 
 The number of nodes is fairly open. in general, it is no more than twice the number of input units, and enough that the network can generalize. A good rule of thumb is the half way in between the number of input and output units.
 There's a good answer here for how to decide the number of nodes in the hidden layer. https://www.quora.com/How-do-I-decide-the-number-of-nodes-in-a-hidden-layer-of-a-neural-network.
-As a suggestion, you might want to try a smaller number than 200 after fixing the issue in forward prorogation implementation mentioned above, to see if you can get better result.
+
+You did a good job in selecting the learning rate in that the training loss consistently decrease and the model converges. 
+
+
+
+After fixing the issue in forward prorogation implementation mentioned above, I would also suggest you to try a smaller learning rate and see if the model can converge faster and better.
+
+#Reflections
+Yes, your observation/analysis about prediction results are correct, the model's predictions are not really good during the Christmas period.  This is mainly because Christmas is a bit special in that the number of riders is  relatively smaller during that period, and our model has only seen such periods only once during the training.
 
 
 Udacity Logo
@@ -119,7 +130,7 @@ The number of hidden units is chosen such that the network is able to accurately
 
 The learning rate is chosen such that the network successfully converges, but is still time efficient.
 
-You did a good job in selecting the learning rate in that the training loss consistently decrease and the model converges. After fixing the issue in forward prorogation implementation mentioned above, I would also suggest you to try a smaller learning rate and see if the model can converge faster and better.
+
 Free form question
 
 The network's performance and failures are discussed
