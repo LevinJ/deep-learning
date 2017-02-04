@@ -122,7 +122,7 @@ class P1:
         
         epochs = 2000
         learning_rate = 0.1
-        hidden_nodes = 30
+        hidden_nodes = 45
         output_nodes = 1
         
         N_i = train_features.shape[1]
