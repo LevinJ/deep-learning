@@ -1,0 +1,80 @@
+# Code Functionality 
+
+Good job here on defining the sigmoid activation function with lambda, very neat solution.
+
+Nice work here. One alternative implementation you might be interested in is to do it with one line: self.activation_function = lambda x: 1/(1+np.exp(-x))
+
+Good coding style to start the activation function with doublescore as  __sigmoid__ to mark it as a private method!  in the meantime, you might want to remove the trailing doulbe underscor. as they are usually special names used by python . https://shahriar.svbtle.com/underscores-in-python
+
+
+#forward propogation
+
+Great work in using matrix multiplication to implement the affine transformation (https://en.wikipedia.org/wiki/Affine_transformation), which is a key component in neural network model. Vectorization like this can greatly speed up computations.
+If you feel adventurous, you could even try adding a bias term. Of course, this is not mandatory requirement for this project.
+
+Perfect!
+
+
+Great work here! Yes, in this model, the output layer should take the output of hidden layer as input.
+
+
+Good catch here. In neural network, the role of the activation function is to introduce non-linearity and allow the model to produce a non-linear decision boundary via non-linear combinations of the weighted inputs. (https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network)
+Here the network is being used for regression, the output of the network should be the raw input to the output unit. In another words, there is not activation function for the output unit, or we would say f(x) = x.
+
+#backpropogration:
+
+Correct!
+
+Well done. The output error is properly propagated back to the hidden layer with the hidden-to-output weights.
+
+Great job in correctly updating the weights via their corresponding derivatives.
+
+Hidden layer gradient(hidden_grad) is actually the gradient for sigmoid function. Well done.
+
+
+Suggestion: For this particular network (being a single sample) your solution of elementwise updating on the weights works. However, this would not always be the case, so it is better practice to solve this by doing matrix multiply as below:
+self.weights_hidden_to_output += self.lr * np.dot(output_errors, hidden_outputs.T)
+self.weights_input_to_hidden += self.lr * np.dot(hidden_errors * hidden_grad, inputs.T)
+
+
+hidden_grad = hidden_outputs \* (1.0 - hidden_outputs).
+
+I think we can interpret hidden_grad as the local gradient of hidden layer, and hidden_errors as the upper gradient of hidden layer with respect to the cost function. As a result, according to chain rule, hidden_errors\*hidden_grad is the gradient of hidden layer with respect to the cost function, which we will use to update self.weights_input_to_hidden weights.
+
+If you wish to gain a more in-depth understanding about chain rule and backpropagation, I highly recommend you to read below article.
+http://cs231n.github.io/optimization-2/
+
+#parameters:
+
+Well done. looking at your plot of training and testing loss, I can see that you chose an appropriate number of epochs such that the loss on the training set is low and the loss on the testing set isn't increasing.
+
+Nice pick. 
+The number of nodes is fairly open. in general, it is no more than twice the number of input units, and enough that the network can generalize. A good rule of thumb is the half way in between the number of input and output units.
+There's a good answer here for how to decide the number of nodes in the hidden layer. https://www.quora.com/How-do-I-decide-the-number-of-nodes-in-a-hidden-layer-of-a-neural-network.
+
+You did a good job in selecting the learning rate in that the training loss consistently decrease and the model converges. 
+
+
+#Reflections
+Yes, your observation/analysis about prediction results are correct, the model's predictions are not really good during the Christmas period.  This is mainly because Christmas is a bit special in that the number of riders is  relatively smaller during that period, and our model has only seen such periods once during the training (we have only  data for two years). In another words, not enough data for the model to learn well to predict periods like Christmas.
+
+#General comments
+Excellent work in setting up your first neural network and applying it to real world data. Your analysis for Christmas period prediction is accurate and to the point!
+
+
+Your project passed review. I also left some comments/suggestions for your reference. Happy Learning!
+
+Awesome submission. You did a great job on implementing a neural net and tuning the model very well. There is only a small issue which you can fix it in less than 5 minutes! :wink: I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
+
+
+Nice progress so far! You've done a good job with the project and only have a few adjustments to make in order to meet all the specs.
+
+You're just about there, so stick with it! :smiley:
+
+ There are just a few modifications requried concerning backpropogration implementation. I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
+
+All the best for your next submission!
+
+There is just one conceptual error I would like you to correct to meet project rubric. Please see comments/suggestions below for details
+
+
