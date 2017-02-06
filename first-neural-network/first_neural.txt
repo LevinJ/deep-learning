@@ -1,16 +1,4 @@
-Awesome submission. You did a great job on implementing a neural net and tuning the model very well. There is only a small issue which you can fix it in less than 5 minutes! :wink: I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
-
-
-Nice progress so far! You've done a good job with the project and only have a few adjustments to make in order to meet all the specs.
-
-You're just about there, so stick with it! :smiley:
-
-Nice work in setting up your first neural network and applying it to real world data. Your analysis for christmas peroid prediction is accurate and to the point! There are just a few modifications requried concerning backpropogration implementation. I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
-
-All the best for your next submission!
-
-
-# activations
+# Code Functionality 
 
 Good job here on defining the sigmoid activation function with lambda, very neat solution.
 
@@ -21,116 +9,72 @@ Good coding style to start the activation function with doublescore as  __sigmoi
 
 #forward propogation
 
-
-
 Great work in using matrix multiplication to implement the affine transformation (https://en.wikipedia.org/wiki/Affine_transformation), which is a key component in neural network model. Vectorization like this can greatly speed up computations.
-
 If you feel adventurous, you could even try adding a bias term. Of course, this is not mandatory requirement for this project.
 
-Great work here! Yes, in this model, the output layer should take the output of hidden layer as input.
+Perfect!
 
+
+Great work here! Yes, in this model, the output layer should take the output of hidden layer as input.
 
 
 Good catch here. In neural network, the role of the activation function is to introduce non-linearity and allow the model to produce a non-linear decision boundary via non-linear combinations of the weighted inputs. (https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network)
 Here the network is being used for regression, the output of the network should be the raw input to the output unit. In another words, there is not activation function for the output unit, or we would say f(x) = x.
 
 #backpropogration:
+
+Correct!
+
 Well done. The output error is properly propagated back to the hidden layer with the hidden-to-output weights.
+
 Great job in correctly updating the weights via their corresponding derivatives.
 
-Hidden layer gradient(hidden_grad)  is actually the gradient for sigmoid function. splendid work!
+Hidden layer gradient(hidden_grad) is actually the gradient for sigmoid function. Well done.
 
 
-The output error should be propagated back to the hidden layer with the hidden-to-output weights in order to generate hidden_errors. In another words, hidden_errors should be derived from self.weight_hidden_to_output and output_errors
- "Suggestion: For this particular network (being a single sample) your solution of elementwise updating on the weights works. However, this would not always be the case, so it is better practice to solve this by doing matrix multiply:
+Suggestion: For this particular network (being a single sample) your solution of elementwise updating on the weights works. However, this would not always be the case, so it is better practice to solve this by doing matrix multiply as below:
+self.weights_hidden_to_output += self.lr * np.dot(output_errors, hidden_outputs.T)
+self.weights_input_to_hidden += self.lr * np.dot(hidden_errors * hidden_grad, inputs.T)
 
 
+hidden_grad = hidden_outputs \* (1.0 - hidden_outputs).
 
-For the self.weight_hidden_to_output update part, since there is no activation function for the output unit, the gradient there is just 1. Because f(x) = x, f'(x) = 1. So then the gradient descent step looks like output_errors  \*  1 \*  hidden_outputs.  in another words, self.weight_hidden_to_output update should be derived from self.lr, output_errors, and hidden_outputs.  
-For the self.weight_input_to_hidden update part, in a similar fashion, its update should be derived from self.lr, hidden_errors , hidden_grad, and inputs.
+I think we can interpret hidden_grad as the local gradient of hidden layer, and hidden_errors as the upper gradient of hidden layer with respect to the cost function. As a result, according to chain rule, hidden_errors\*hidden_grad is the gradient of hidden layer with respect to the cost function, which we will use to update self.weights_input_to_hidden weights.
 
-Hidden layer gradient(hidden_grad)  is actually the gradient for sigmoid function, and should be hidden_grad = hidden_outputs * (1.0 - hidden_outputs).
+If you wish to gain a more in-depth understanding about chain rule and backpropagation, I highly recommend you to read below article.
+http://cs231n.github.io/optimization-2/
 
 #parameters:
 
 Well done. looking at your plot of training and testing loss, I can see that you chose an appropriate number of epochs such that the loss on the training set is low and the loss on the testing set isn't increasing.
 
+Nice pick. 
 The number of nodes is fairly open. in general, it is no more than twice the number of input units, and enough that the network can generalize. A good rule of thumb is the half way in between the number of input and output units.
 There's a good answer here for how to decide the number of nodes in the hidden layer. https://www.quora.com/How-do-I-decide-the-number-of-nodes-in-a-hidden-layer-of-a-neural-network.
-As a suggestion, you might want to try a smaller number than 200 after fixing the issue in forward prorogation implementation mentioned above, to see if you can get better result.
+
+You did a good job in selecting the learning rate in that the training loss consistently decrease and the model converges. 
 
 
-Udacity Logo
+#Reflections
+Yes, your observation/analysis about prediction results are correct, the model's predictions are not really good during the Christmas period.  This is mainly because Christmas is a bit special in that the number of riders is  relatively smaller during that period, and our model has only seen such periods once during the training (we have only  data for two years). In another words, not enough data for the model to learn well to predict periods like Christmas.
 
-    Logout
-
-Your first neural network
-
-    Student Notes
-    Resources
-    Code Review
-    Project Review
-
-Code Functionality
-
-All the code in the notebook runs in Python 3 without failing.
-
-The sigmoid activation function is implemented correctly
-
-Good job here on defining the sigmoid activation function with lambda, very neat solution.
-Forward Pass
-
-The input to the hidden layer is implemented correctly in both the train and run methods.
-
-Great work in using matrix multiplication to implement the affine transformation (https://en.wikipedia.org/wiki/Affine_transformation), which is a key component in neural network model. Vectorization like this can greatly speed up computations.
-
-If you feel adventurous, you could even try adding a bias term. Of course, this is not mandatory requirement for this project.
-
-The output of the hidden layer is implemented correctly in both the train and run methods.
-
-The input to the output layer is implemented correctly in both the train and run methods.
-
-Great work here! Yes, in this model, the output layer should take the output of hidden layer as input.
-
-The output of the network is implemented correctly in both the train and run methods.
-
-In neural network, the role of the activation function is to introduce non-linearity and allow the model to produce a non-linear decision boundary via non-linear combinations of the weighted inputs. (https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network)
-Here the network is being used for regression, the output of the network should be the raw input to the output unit. In another words, there is not activation function for the output unit, or we would say f(x) = x.
-Backward Pass
-
-The network output error is implemented correctly
-
-network output error is correctly computed, well done!
-
-The error propagated back to the hidden layer is implemented correctly
-
-Updates to both the weights are implemented correctly.
+#General comments
+Excellent work in setting up your first neural network and applying it to real world data. Your analysis for Christmas period prediction is accurate and to the point!
 
 
-Hyperparameters
+Your project passed review. I also left some comments/suggestions for your reference. Happy Learning!
 
-The number of epochs is chosen such the network is trained well enough to accurately make predictions but is not overfitting to the training data.
-
-
-
-The number of hidden units is chosen such that the network is able to accurately predict the number of bike riders, is able to generalize, and is not overfitting.
+Awesome submission. You did a great job on implementing a neural net and tuning the model very well. There is only a small issue which you can fix it in less than 5 minutes! :wink: I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
 
 
+Nice progress so far! You've done a good job with the project and only have a few adjustments to make in order to meet all the specs.
 
-The learning rate is chosen such that the network successfully converges, but is still time efficient.
+You're just about there, so stick with it! :smiley:
 
-You did a good job in selecting the learning rate in that the training loss consistently decrease and the model converges. After fixing the issue in forward prorogation implementation mentioned above, I would also suggest you to try a smaller learning rate and see if the model can converge faster and better.
-Free form question
+ There are just a few modifications requried concerning backpropogration implementation. I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
 
-The network's performance and failures are discussed
-
-yes, the model does seem to get stuck between two levels. As mentioned above, the output layer of this model is expected to have no activation function in it. Please have it corrected and then see how the predictions look like.
-Additional Reviewer Comments
-
-Excellent work in setting up your first neural network and applying it to real world data!
-Your question about "model being stuck between two levels" is answered below.
 All the best for your next submission!
 
-    Student FAQ
+There is just one conceptual error I would like you to correct to meet project rubric. Please see comments/suggestions below for details
 
 
