@@ -19,13 +19,13 @@ Great work here! Yes, in this model, the output layer should take the output of 
 
 
 Good catch here. In neural network, the role of the activation function is to introduce non-linearity and allow the model to produce a non-linear decision boundary via non-linear combinations of the weighted inputs. (https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network)
-Here the network is being used for regression, the output of the network should be the raw input to the output unit. In another words, there is not activation function for the output unit, or we would say f(x) = x.
+Here the network is being used for regression, the output of the network should be the raw input to the output unit. In other words, there is not activation function for the output unit, or we would say f(x) = x.
 
 #backpropogration:
 
 Correct!
 
-Well done. The output error is properly propagated back to the hidden layer with the hidden-to-output weights.
+Well done. hidden_errors is properly propagated from the output layer with the hidden-to-output weights
 
 Great job in correctly updating the weights via their corresponding derivatives.
 
@@ -33,11 +33,14 @@ Suggestion: For this particular network (being a single sample) your solution of
 self.weights_hidden_to_output += self.lr * np.dot(output_errors, hidden_outputs.T)
 self.weights_input_to_hidden += self.lr * np.dot(hidden_errors * hidden_grad, inputs.T)
 
+This does allow us to correctly compute self.weights_input_to_hidden weight update at the end, but there is a conceptual error I would like you to correct. Please modify this line based on the meaning of hidden_errors \* hidden_grad explained below.
+
 Hidden layer gradient(hidden_grad) is actually the gradient for sigmoid function. Well done.
 
-hidden_grad = hidden_outputs \* (1.0 - hidden_outputs).
-
+Hint: sigmoid'(t) = sigmoid(t)(1-sigmoid(t)), please refer to https://en.wikipedia.org/wiki/Sigmoid_function for more details.
 We can interpret hidden_grad as the local gradient of hidden layer, and hidden_errors as the upper gradient of hidden layer with respect to the cost function. As a result, according to chain rule, hidden_errors\*hidden_grad is the gradient of hidden layer with respect to the cost function, which we will use to update self.weights_input_to_hidden weights. If you are a bit confused by some of the terms used here, please refer to http://cs231n.github.io/optimization-2/ for more detailed explanation.
+
+In a similar line of thought, output_grad should be the local gradient of output layer, which is just 1 (since its activation function is f(x) = x)
 
 
 #parameters:
@@ -50,25 +53,33 @@ There's a good answer here for how to decide the number of nodes in the hidden l
 
 You did a good job in selecting the learning rate in that the training loss consistently decrease and the model converges. 
 
+There is nothing fundamentally wrong with picking the learning rate you are using, but, as explained above, please modify it if necessary.
+
+From the learning chart, we can see that the training loss is still decreasing and does not reach plateau yet even at the end of the training.  Hint, try something bigger, like 1000, 2000, and etc.
+
+I marked this item as change required, but please note that this is certainly not the only hyper parameter you can tune to get good result. As a matter of fact, people often tune various hyper parameters (epoch number, model hidden node, learning rate, and many more other stuff) together based on the principle of  bias-variance trade-off. https://www.quora.com/What-is-the-best-way-to-explain-the-bias-variance-trade-off-in-laymens-terms
+
 
 #Reflections
-Yes, your observation/analysis about prediction results are correct, the model's predictions are not really good during the Christmas period.  This is mainly because Christmas is a bit special in that the number of riders is  relatively smaller during that period, and our model has only seen such periods once during the training (we have only  data for two years). In another words, not enough data or predictive features for the model to learn well to predict periods like Christmas.
+Your analysis for Christmas period prediction is accurate and to the point!
+
+Yes, your observation/analysis about prediction results are correct, the model's predictions are not really good during the Christmas period.  This is mainly because Christmas is a bit special in that the number of riders is  relatively smaller during that period, and our model has only seen such periods once during the training (we have only  data for two years). 
+
+Yes, your observation/analysis about prediction results are correct. With more data/predictive features/complicated model, we certainly could improve the model's prediction around Christmas.
+
+Another relevant point about prediction result, the ridership data we use is a time series type data, current way of splitting train/val/test data by date (as opposed to randomly) is actually the "right" way to go. This is because if we split it randomly, we will get very similar data among train/val/test (I mean, we can  easily imagine the ridership data between adjacent hours can be very similar). As a result, after training, we are effectively evaluating our model again "training" data, and this defeats the very purpose of train/val/test split. If you like, you can do a quick experimentation, Keep the last 21 days as test data, but randomly split train/val, you will see that you can instantly get very low validation loss, but your test loss will still remain high.
+
+
 
 #General comments
-Excellent work in setting up your first neural network and applying it to real world data. Your analysis for Christmas period prediction is accurate and to the point!
+Nice work in setting up your first neural network and applying it to real world data! 
 
 
 Your project passed review. I also left some comments/suggestions for your reference. Happy Learning!
 
-Awesome submission. You did a great job on implementing a neural net and tuning the model very well. There is only a small issue which you can fix it in less than 5 minutes! :wink: I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
-
-
-Nice progress so far! You've done a good job with the project and only have a few adjustments to make in order to meet all the specs.
-
-You're just about there, so stick with it! :smiley:
-
- There are just a few modifications requried concerning backpropogration implementation. I can see that you are pretty confident in neural net implementation and please keep doing your awesome job!
-
-All the best for your next submission!
-
 There is just one conceptual error I would like you to correct to meet project rubric. Please see comments/suggestions below for details.
+
+
+Keep up the good work!
+
+
