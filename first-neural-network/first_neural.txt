@@ -25,11 +25,13 @@ Here the network is being used for regression, the output of the network should 
 
 Correct!
 
-Well done. hidden_errors is properly propagated from the output layer with the hidden-to-output weights
+
 
 Great job in correctly updating the weights via their corresponding derivatives.
 
-Suggestion: For this particular network (being a single sample) your solution of elementwise updating on the weights works. However, this would not always be the case, so it is better practice to solve this by doing matrix multiply as below:
+Well done. hidden_errors is properly propagated from the output layer with the hidden-to-output weights
+
+Suggestion: For this particular network (being a single sample) your solution of elementwise updating on the weights works. However, this would not always be the case, so it is better practice to solve this by doing matrix multiplication as below:
 self.weights_hidden_to_output += self.lr * np.dot(output_errors, hidden_outputs.T)
 self.weights_input_to_hidden += self.lr * np.dot(hidden_errors * hidden_grad, inputs.T)
 
@@ -59,6 +61,11 @@ From the learning chart, we can see that the training loss is still decreasing a
 
 I marked this item as change required, but please note that this is certainly not the only hyper parameter you can tune to get good result. As a matter of fact, people often tune various hyper parameters (epoch number, model hidden node, learning rate, and many more other stuff) together based on the principle of  bias-variance trade-off. https://www.quora.com/What-is-the-best-way-to-explain-the-bias-variance-trade-off-in-laymens-terms
 
+First of all, nice approaches and efforts in fine tuning hyper parameters of the model.
+
+Hyper parameter tuing is, to a large degree,  a matter of variance and bias trade-off. If you interested, here is a nice article:  https://www.coursera.org/learn/machine-learning/resources/LIZza
+
+I marked this item as change required, but please note that this is certainly not the only hyper parameter you can tune to get good result. As a matter of fact, people often jointly tune various hyper parameters (epoch number, model hidden node, learning rate, and many more other stuff) to pick optimal parameters.
 
 #Reflections
 Your analysis for Christmas period prediction is accurate and to the point!
@@ -73,7 +80,6 @@ Another relevant point about prediction result, the ridership data we use is a t
 
 #General comments
 Nice work in setting up your first neural network and applying it to real world data! 
-
 
 Your project passed review. I also left some comments/suggestions for your reference. Happy Learning!
 
